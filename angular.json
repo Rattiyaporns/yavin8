@@ -72,10 +72,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "yavin-web:build:production"
+              "browserTarget": "yavin-web:build:production",
+              "proxyConfig": "./proxy.conf.prod.json"
             },
             "development": {
-              "browserTarget": "yavin-web:build:development"
+              "browserTarget": "yavin-web:build:development",
+              "proxyConfig": "./proxy.conf.dev.json"
             }
           },
           "defaultConfiguration": "development"

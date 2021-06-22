@@ -1,0 +1,10 @@
+{
+    "/api/ob-account": {
+        "target": "https://dev-obsvc-accounts.azurewebsites.net",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api/ob-account": ""
+        }
+    }
+}

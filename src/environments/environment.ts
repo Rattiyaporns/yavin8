@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serviceUrl: 'http://obg-accountssvc-dev.azurewebsites.net'
+  serviceUrl: 'api/ob-account'
 };
 
 /*

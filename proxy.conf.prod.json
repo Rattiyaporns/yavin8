@@ -1,0 +1,10 @@
+{
+    "/api/ob-account": {
+        "target": "https://accounts.obapi.io",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api/ob-account": ""
+        }
+    }
+}
