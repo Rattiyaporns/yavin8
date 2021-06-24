@@ -1,9 +1,14 @@
-<form>  
+<form *ngIf="!checkLogin">  
     <div class="container">   
         <label>Username : </label>   
         <input type="text" placeholder="Enter Username" name="username" #username>  
         <label>Password : </label>   
         <input type="password" placeholder="Enter Password" name="password" #password>  
-        <button type="button" (click)="onCilckButton(username.value, password.value)">Login</button>   
+        <button type="button" (click)="login(username.value, password.value)">Login</button>   
     </div>   
 </form>  
+
+<div *ngIf="checkLogin">Welcome
+    <button type="button" (click)="logout()">Logout</button>
+
+</div>

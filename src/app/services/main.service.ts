@@ -14,23 +14,19 @@ export class MainService {
    public readonly ookbeeAuth = environment.ookbeeAuthKey;
    public readonly yavinAuth = environment.yavinAuthKey;
    public readonly contentType = environment.ContentType;
+
    constructor(private http: HttpClient) { }
 
    private createHttpOptions(options?: any, json?: boolean, type?: any): any {
-      let headers = new HttpHeaders;
+      let listHeaders = {};
       if (options && options.headers) {
          return options;
       }
-      if (type === 'ookbee') {
-         headers = new HttpHeaders({
-            'Ookbee-Auth-Rest-API-Key': this.ookbeeAuth
-         });
-      } else {
-         headers = new HttpHeaders({
-            'Yavin-API-Key': this.yavinAuth
-         });
-      }
-      if (json) {
+
+      listHeaders = (type === 'ookbee') ? { 'Ookbee-Auth-Rest-API-Key': this.ookbeeAuth } : { 'Yavin-API-Key': this.yavinAuth };
+      let headers = new HttpHeaders(listHeaders);
+      
+      if (json !== false) {
          headers = headers.append('Content-Type', this.contentType);
       }
       if (options) {

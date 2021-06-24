@@ -8,11 +8,22 @@ import { MainService } from './main.service';
   providedIn: 'root'
 })
 export class YavinService {
-  
-  constructor(private service: MainService) { }
+  public accessToken: any;
+  public readonly yavinAuth = environment.yavinAuthKey;
+  constructor(private service: MainService) {}
 
   login(body: any, type: any): Observable<any> {
     return this.service.post('/login', body, null, type);
+  }
+
+  logout(): Observable<any> {    
+    this.accessToken = localStorage.getItem('access_token');
+    return this.service.post('/logout', null, {
+      headers: new HttpHeaders({
+         'Authorization': 'Bearer ' + this.accessToken || '',
+         'Yavin-API-Key': this.yavinAuth
+      })
+   }, '');
   }
 
 }
