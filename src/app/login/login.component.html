@@ -7,8 +7,9 @@
         <button type="button" (click)="login(username.value, password.value)">Login</button>   
     </div>   
 </form>  
-
-<div *ngIf="checkLogin">Welcome
-    <button type="button" (click)="logout()">Logout</button>
-
+<div *ngIf="checkLogin">
+    <app-dashboard></app-dashboard>    
+    <!-- <button type="button" style="width: 100px; margin-right: 20px;" (click)="logout()">Logout</button>
+    <button type="button" style="width: 150px;" (click)="refreshToken()">Refresh Token</button>
+    <button type="button" style="width: 150px; margin-left: 20px;" (click)="getProfile()">Profile</button> -->
 </div>

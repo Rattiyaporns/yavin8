@@ -8,22 +8,46 @@ import { MainService } from './main.service';
   providedIn: 'root'
 })
 export class YavinService {
+  
   public accessToken: any;
+  public refreshToken: any;
   public readonly yavinAuth = environment.yavinAuthKey;
-  constructor(private service: MainService) {}
+  public readonly contentType = environment.ContentType;
+
+  constructor(private service: MainService) {
+    this.accessToken = localStorage.getItem('access_token');
+    this.refreshToken = localStorage.getItem('refresh_token');
+  }
 
   login(body: any, type: any): Observable<any> {
     return this.service.post('/login', body, null, type);
   }
 
   logout(): Observable<any> {    
-    this.accessToken = localStorage.getItem('access_token');
     return this.service.post('/logout', null, {
       headers: new HttpHeaders({
-         'Authorization': 'Bearer ' + this.accessToken || '',
-         'Yavin-API-Key': this.yavinAuth
+         'Authorization': 'Bearer ' + this.accessToken || ''
+         ,'Yavin-API-Key': this.yavinAuth
       })
-   }, '');
+   }, 'yavin-user');
+  }
+
+  refreshTokenApi() {
+    let token = {'refresh_token': this.refreshToken};
+    return this.service.post('/token/refresh', token, {
+      headers: new HttpHeaders({
+         'Authorization': 'Bearer ' + this.accessToken || ''
+      })
+   }, 'yavin-user');
+  }
+
+  getMeApi() {
+    return this.service.get('/me', {
+      headers: new HttpHeaders({
+         'Authorization': 'Bearer ' + this.accessToken || ''
+         ,'Yavin-API-Key': this.yavinAuth
+      })
+   }, 'yavin-account');
   }
 
 }

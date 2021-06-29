@@ -10,20 +10,25 @@ import { environment } from 'src/environments/environment';
 export class MainService {
 
    public readonly urlOokBee = environment.serviceUrlOokBee;
-   public readonly urlYavin = environment.serviceUrlYavin;
+   public readonly urlYavinUser = environment.serviceYavinUser;
+   public readonly urlYavinAccount = environment.serviceYavinAccount;
    public readonly ookbeeAuth = environment.ookbeeAuthKey;
    public readonly yavinAuth = environment.yavinAuthKey;
    public readonly contentType = environment.ContentType;
+   public accessToken: any;
 
-   constructor(private http: HttpClient) { }
+   constructor(private http: HttpClient) {      
+   }
 
    private createHttpOptions(options?: any, json?: boolean, type?: any): any {
-      let listHeaders = {};
+      console.log(options);
+      
       if (options && options.headers) {
          return options;
       }
-
-      listHeaders = (type === 'ookbee') ? { 'Ookbee-Auth-Rest-API-Key': this.ookbeeAuth } : { 'Yavin-API-Key': this.yavinAuth };
+      this.accessToken = localStorage.getItem('access_token');
+      let listHeaders = {};
+      listHeaders = (type === 'ookbee') ? { 'Ookbee-Auth-Rest-API-Key': this.ookbeeAuth } : { 'Yavin-API-Key': this.yavinAuth, 'Content-Lengtht': 0 };
       let headers = new HttpHeaders(listHeaders);
       
       if (json !== false) {
@@ -38,11 +43,21 @@ export class MainService {
    }
 
    private getUrl(api: string, type?: any): string {
-      const url = (type === 'ookbee') ? this.urlOokBee : this.urlYavin;
+      console.log(type);
+      let url ;
+      if (type === 'ookbee') {
+         url = this.urlOokBee;
+      } else if (type === 'yavin-user') {
+         url = this.urlYavinUser;
+      } if (type === 'yavin-account') {
+         url = this.urlYavinAccount;
+      } 
+      
       return url + (api.startsWith('/') ? api : '/' + api);
    }
 
    get(api: string, options?: any, type?: any): Observable<any> {
+      console.log(options);
       return this.http.get(this.getUrl(api, type), this.createHttpOptions(options, true, type))
          .pipe(catchError(this.handleError(api)));
    }

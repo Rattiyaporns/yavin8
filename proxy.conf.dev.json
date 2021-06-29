@@ -14,5 +14,13 @@
         "pathRewrite": {
             "^/api/yavin/user": ""
         }
+    }, 
+    "/api/yavin/account": {
+        "target": "https://wiseday-dev.azure-api.net/accounts/v1",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api/yavin/account": ""
+        }
     }
 }
