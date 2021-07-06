@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ShareModule } from './share/share.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ShareModule } from './share/share.module';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ShareModule
+    ShareModule,
+    ReactiveFormsModule,
+    FormsModule,              
   ],
   providers: [],
   bootstrap: [AppComponent]

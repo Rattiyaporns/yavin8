@@ -1,15 +1,10 @@
-<form *ngIf="!checkLogin">  
-    <div class="container">   
+<form *ngIf="!checkLogin" [formGroup]="loginForm" id="loginForm">  
+    <div id="username-container" class="container">   
         <label>Username : </label>   
-        <input type="text" placeholder="Enter Username" name="username" #username>  
+        <input type="text" formControlName="username" placeholder="Enter Username" name="username" #username>  
         <label>Password : </label>   
-        <input type="password" placeholder="Enter Password" name="password" #password>  
+        <input type="password" formControlName="password" placeholder="Enter Password" name="password" #password>  
         <button type="button" (click)="login(username.value, password.value)">Login</button>   
     </div>   
 </form>  
-<div *ngIf="checkLogin">
-    <app-dashboard></app-dashboard>    
-    <!-- <button type="button" style="width: 100px; margin-right: 20px;" (click)="logout()">Logout</button>
-    <button type="button" style="width: 150px;" (click)="refreshToken()">Refresh Token</button>
-    <button type="button" style="width: 150px; margin-left: 20px;" (click)="getProfile()">Profile</button> -->
-</div>
+<router-outlet></router-outlet>

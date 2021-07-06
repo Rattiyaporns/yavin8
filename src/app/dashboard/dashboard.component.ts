@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { YavinService } from '../services/yavin.service';
 
 @Component({
@@ -12,13 +13,13 @@ export class DashboardComponent implements OnInit {
   isShowing = false;
   showSubSubMenu: boolean = false;
   displayName: string = '';
-  constructor(private yavinService: YavinService) {
-   }
+  constructor(private yavinService: YavinService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.getProfile();
   }
-  
+
   mouseenter() {
     if (!this.isExpanded) {
       this.isShowing = true;
@@ -36,15 +37,17 @@ export class DashboardComponent implements OnInit {
       console.log(res);
       this.displayName = res.display_name;
       // display_name
-     }, error => console.log(error));
+    }, error => console.log(error));
   }
-  
+
   logout() {
     console.log('in');
-    // this.yavinService.logout().subscribe((res: any) => {
-      // this.checkLogin = false;
-    //  }, error => console.log(error));
+    this.yavinService.logout().subscribe((res: any) => {
+      this.router.navigate(['login']);
+      // this.router.navigate(['/login'], { queryParams: { checkLogin: false }});
+      // this.router.navigate(['/login', { checkLogin: false }]);
+    }, error => console.log(error));
   }
 }
-  
+
 

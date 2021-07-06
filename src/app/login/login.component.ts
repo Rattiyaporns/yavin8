@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';        
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { OokbeeService } from '../services/ookbee.service';
 import { YavinService } from './../services/yavin.service';
@@ -25,13 +27,23 @@ export class LoginComponent implements OnInit {
     'refresh_token': '',
     'is_new_register': false
   };
+
   checkLogin = false;
-  constructor(private service: OokbeeService, private yavinService: YavinService) { }
+  loginForm: any;
+  constructor(private formBuilder: FormBuilder,private service: OokbeeService
+    , private yavinService: YavinService, private router: Router) {}
 
   ngOnInit(): void {
+  
+  this.loginForm = this.formBuilder.group({
+    username: [''],
+    password: ['']
+  });
+    this.checkLogin = false;    
   }
 
   login(username: any, password: any) {
+    console.log(this.loginForm);
     this.service.login(username, password, 'ookbee').subscribe((resAccount: any) => {
       this.resAccount.ookbee_numeric_id = resAccount.data.ookbeeNumericId;
       this.resAccount.access_token = resAccount.data.accessToken;
@@ -42,6 +54,7 @@ export class LoginComponent implements OnInit {
         this.resYavinUser = resUser;
         localStorage.setItem('access_token', this.resYavinUser.access_token);
         localStorage.setItem('refresh_token', this.resYavinUser.refresh_token);
+        this.router.navigateByUrl('/dashboard');
       }, error => console.log(error)), 1000);
     });
   }
