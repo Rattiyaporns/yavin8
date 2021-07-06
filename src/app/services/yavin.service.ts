@@ -15,6 +15,9 @@ export class YavinService {
   public readonly contentType = environment.ContentType;
 
   constructor(private service: MainService) {
+  }
+
+  getLocalStorage() {    
     this.accessToken = localStorage.getItem('access_token');
     this.refreshToken = localStorage.getItem('refresh_token');
   }
@@ -33,6 +36,7 @@ export class YavinService {
   }
 
   refreshTokenApi() {
+    this.getLocalStorage();
     let token = {'refresh_token': this.refreshToken};
     return this.service.post('/token/refresh', token, {
       headers: new HttpHeaders({
@@ -42,6 +46,8 @@ export class YavinService {
   }
 
   getMeApi() {
+    this.getLocalStorage();
+    console.log(this.accessToken);
     return this.service.get('/me', {
       headers: new HttpHeaders({
          'Authorization': 'Bearer ' + this.accessToken || ''

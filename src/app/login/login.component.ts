@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
       this.resAccount.access_token_expires_date = resAccount.data.accessTokenExpiresDate;
       this.resAccount.device_id = this.deviceId;
       setTimeout(() => this.yavinService.login(this.resAccount, 'yavin-user').subscribe((resUser: any) => {
+        console.log(resUser);
         this.checkLogin = true;
         this.resYavinUser = resUser;
         localStorage.setItem('access_token', this.resYavinUser.access_token);
