@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Meta } from '@angular/platform-browser';
+import { take } from 'rxjs/operators';
 import { YavinService } from './services/yavin.service';
 @Component({
   selector: 'app-root',
@@ -18,28 +19,41 @@ export class AppComponent implements OnInit {
   constructor(private title: Title, private meta: Meta, private service: YavinService) {
    }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<any> {
     // console.log(this.metaData);
-    this.getUser();
-    this.setMetaDataFacebook(this.metaData);
+    this.title.setTitle('Wiseday');  
+
+    await this.getUser();
+    // this.setMetaDataFacebook(this.metaData);
   }
 
-  getUser() {
-    this.service.getUserApi().subscribe((res: any) => {
-      console.log('res', res);
-      this.metaData.title = res.display_name + res.stat.follower_count;
-      this.metaData.image = res.avatar_url;
-      this.metaData.type = 'profile';
-      this.metaData.description = res.about;
-      this.title.setTitle('Wiseday');  
-      console.log('metaData', this.metaData);    
-      this.setMetaDataFacebook(this.metaData);
-    }, error => console.log('error', error)); 
+  async getUser() {
+    var response = await this.service.getUserApi()
+      .pipe(take(1))
+      .toPromise();
+    this.metaData.title = response.display_name + response.stat.follower_count;
+    this.metaData.image = response.avatar_url;
+    this.metaData.type = 'profile';
+    this.metaData.description = response.about;
+    console.log('metaData', this.metaData);
+
+    this.setMetaDataFacebook(this.metaData);
+    // this.service.getUserApi().subscribe((res: any) => {
+    //   console.log('res', res);
+    //   this.metaData.title = res.display_name + res.stat.follower_count;
+    //   this.metaData.image = res.avatar_url;
+    //   this.metaData.type = 'profile';
+    //   this.metaData.description = res.about;
+    //   this.title.setTitle('Wiseday');  
+    //   console.log('metaData', this.metaData);    
+    //   this.setMetaDataFacebook(this.metaData);
+    // }, error => console.log('error', error)); 
     // this.setMetaTwitter(this.metaData);
   }
 
   setMetaDataFacebook(metaData: any) {
     console.log(metaData);
+
     this.meta.addTags([
       { name: 'og:type', content: metaData.type },
       // { name: 'og:url', content: metaData.url },

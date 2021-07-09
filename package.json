@@ -12,6 +12,11 @@
     "build:ssr": "ng build && ng run yavin-web:server",
     "prerender": "ng run yavin-web:prerender"
   },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.5",
