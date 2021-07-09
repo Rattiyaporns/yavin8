@@ -47,13 +47,21 @@ export class YavinService {
 
   getMeApi() {
     this.getLocalStorage();
-    console.log(this.accessToken);
     return this.service.get('/me', {
       headers: new HttpHeaders({
          'Authorization': 'Bearer ' + this.accessToken || ''
          ,'Yavin-API-Key': this.yavinAuth
       })
    }, 'yavin-account');
+  }
+
+  getUserApi() {
+    // this.getLocalStorage();
+    return this.service.get('/14', {
+      headers: new HttpHeaders({
+         'Yavin-API-Key': this.yavinAuth
+      })
+   }, 'yavin-user');
   }
 
 }

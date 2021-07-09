@@ -17,7 +17,7 @@ export class MainService {
    public readonly contentType = environment.ContentType;
    public accessToken: any;
 
-   constructor(private http: HttpClient) {      
+   constructor(private http: HttpClient) {     
    }
 
    private createHttpOptions(options?: any, json?: boolean, type?: any): any {
