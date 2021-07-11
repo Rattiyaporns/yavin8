@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { OokbeeService } from '../services/ookbee.service';
 import { YavinService } from './../services/yavin.service';
+import { Title, Meta } from '@angular/platform-browser';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,14 +28,43 @@ export class LoginComponent implements OnInit {
     'refresh_token': '',
     'is_new_register': false
   };
-
+  
+  metaData= {
+    title: '',
+    description: '',
+    image: '',
+    type: '',
+    url: '',
+  };
+  url = 'https://yavin-test.azurewebsites.net/';
+  type: any;
+  id: any;
   checkLogin = false;
   loginForm: any;
-  constructor(private formBuilder: FormBuilder,private service: OokbeeService
-    , private yavinService: YavinService, private router: Router) {}
+  constructor(private formBuilder: FormBuilder,private service: OokbeeService,
+    private yavinService: YavinService, private router: Router, private route: ActivatedRoute,
+    private title: Title, private meta: Meta, private serviceYavin: YavinService) {}
 
   ngOnInit(): void {
-  
+    this.route.params.subscribe(params => {
+      this.type = params['type'];
+      this.id = params['id'];
+      console.log(params['type']);
+      if (this.type === 'users') {
+        this.metaData.title = 'users';
+        this.metaData.url = this.url + 'users/' + this.id;
+      } else if (this.type === 'pages') {
+        this.metaData.title = 'pages';
+        this.metaData.url = this.url + 'pages/' + this.id;
+      } else if (this.type === 'groups') {
+        this.metaData.title = 'groups';
+        this.metaData.url = this.url + 'groups/' + this.id;
+      } else if (this.type === 'posts') {
+        this.metaData.title = 'posts';
+        this.metaData.url = this.url + 'posts/' + this.id;
+      }
+   });
+  this.setMetaDataFacebook(this.metaData);
   this.loginForm = this.formBuilder.group({
     username: [''],
     password: ['']
@@ -70,6 +100,40 @@ export class LoginComponent implements OnInit {
     this.yavinService.getMeApi().subscribe((res: any) => {
       console.log(res);
      }, error => console.log(error));
+  }
+
+  getUser() { 
+    this.serviceYavin.getUserApi().subscribe((res: any) => {
+      this.metaData.title = res.display_name + res.stat.follower_count;
+      this.metaData.image = res.avatar_url;
+      this.metaData.type = 'profile';
+      this.metaData.description = res.about;
+      this.title.setTitle('Wiseday');  
+      if ( this.metaData.title) {
+        this.setMetaDataFacebook(this.metaData);
+        this.setMetaTwitter(this.metaData);
+      }    
+    }, error => console.log('error', error)); 
+  }
+
+  setMetaDataFacebook(metaData: any) {
+    console.log(metaData);
+    this.meta.addTags([
+      { name: 'og:type', content: metaData.type },
+      { name: 'og:url', content: metaData.url },
+      { name: 'og:image', content: metaData.image },
+      { name: 'og:description', content: metaData.description},
+      { name: 'og:title', content: metaData.title}
+    ]);
+  }
+
+  setMetaTwitter(metaData: any) {
+      this.meta.addTag({name: 'description', content: metaData.description});
+      this.meta.addTag({name: 'twitter:card', content: 'summary'});
+      this.meta.addTag({name: 'twitter:title', content: metaData.title});
+      this.meta.addTag({name: 'twitter:description', content: metaData.description});
+      this.meta.addTag({name: 'twitter:text:description', content: metaData.description});
+      this.meta.addTag({name: 'twitter:image', content:  metaData.image});
   }
   
 }
