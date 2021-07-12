@@ -26,6 +26,7 @@ export class PostsComponent implements OnInit {
       this.title.setTitle('Wiseday');
   
       this.id = this.route.snapshot.params['id'];
+      console.log(this.id);
       const post = await this.yavinService.getPostApi(this.id).toPromise();
       this.updateMetaTags(post);
     }
@@ -53,6 +54,7 @@ export class PostsComponent implements OnInit {
       this.seoService.updateImageUrl(post.owner.avatar_url ?? '');
 
       const description = this.getPostDescription(post);
+      console.log(description);
       this.seoService.updateDescription(description);
     }
 }

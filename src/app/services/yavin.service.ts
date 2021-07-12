@@ -79,4 +79,12 @@ export class YavinService {
    }, 'yavin-page');
   }
 
+  getGroupApi(id: any) {
+    return this.service.get('/' + id + '?member_status=' + true , {
+      headers: new HttpHeaders({
+         'Yavin-API-Key': this.yavinAuth
+      })
+   }, 'yavin-gruop');
+  }
+
 }

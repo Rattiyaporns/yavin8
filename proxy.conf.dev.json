@@ -38,5 +38,13 @@
         "pathRewrite": {
             "^/api/yavin/page": ""
         }
+    }, 
+    "/api/yavin/group": {
+        "target": "https://wiseday-dev.azure-api.net/groups/v1",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api/yavin/group": ""
+        }
     }
 }
