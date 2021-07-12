@@ -7,6 +7,7 @@ import { YavinService } from './../services/yavin.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { take } from 'rxjs/operators';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { SeoService } from '../services/seo.service';
 
 @Component({
   selector: 'app-login',
@@ -44,9 +45,15 @@ export class LoginComponent implements OnInit {
   id: any;
   checkLogin = false;
   loginForm: any;
-  constructor(private formBuilder: FormBuilder, private service: OokbeeService,
-    private yavinService: YavinService, private router: Router, private route: ActivatedRoute,
-    private title: Title, private meta: Meta, private serviceYavin: YavinService) { }
+  constructor(private formBuilder: FormBuilder,
+    private service: OokbeeService,
+    private yavinService: YavinService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private title: Title,
+    private meta: Meta,
+    private serviceYavin: YavinService,
+    private seoService: SeoService) { }
 
   async ngOnInit(): Promise<any> {
     this.route.params.subscribe(params => {
@@ -92,7 +99,6 @@ export class LoginComponent implements OnInit {
   async getType(type: any, id: any) {
     if (type === 'users') {
       var response = await this.serviceYavin.getUserApi(id)
-        .pipe(take(1))
         .toPromise();
       this.metaData.title = response.display_name + response.stat.follower_count;
       this.metaData.url = this.url + 'users/' + id;
@@ -114,20 +120,25 @@ export class LoginComponent implements OnInit {
 
   setSocialTags(metaData: any) {
     console.log(metaData);
-    this.meta.addTags([
-      //facebook
-      { property: 'og:type', content: metaData.type },
-      { property: 'og:url', content: metaData.url },
-      { property: 'og:image', content: metaData.image },
-      { property: 'og:description', content: metaData.description },
-      { property: 'og:title', content: metaData.title },
-      //twitter
-      { property: 'twitter:card', content: 'summary' },
-      { property: 'twitter:title', content: metaData.title },
-      { property: 'twitter:description', content: metaData.description },
-      { property: 'twitter:image', content: metaData.image },
-      { property: 'twitter:url', content: metaData.url },
-    ]);
-  }
+    // this.meta.addTags([
+    //   //facebook
+    //   { property: 'og:type', content: metaData.type },
+    //   { property: 'og:url', content: metaData.url },
+    //   { property: 'og:image', content: metaData.image },
+    //   { property: 'og:description', content: metaData.description },
+    //   { property: 'og:title', content: metaData.title },
+    //   //twitter
+    //   { property: 'twitter:card', content: 'summary' },
+    //   { property: 'twitter:title', content: metaData.title },
+    //   { property: 'twitter:description', content: metaData.description },
+    //   { property: 'twitter:image', content: metaData.image },
+    //   { property: 'twitter:url', content: metaData.url },
+    // ]);
 
+    this.seoService.updateType(metaData.type);
+    this.seoService.updateTitle(metaData.title);
+    this.seoService.updateUrl(metaData.url);
+    this.seoService.updateImageUrl(metaData.image);
+    this.seoService.updateDescription(metaData.description);
+  }
 }
