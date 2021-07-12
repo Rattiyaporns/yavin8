@@ -21,8 +21,6 @@ export class MainService {
    }
 
    private createHttpOptions(options?: any, json?: boolean, type?: any): any {
-      console.log(options);
-      
       if (options && options.headers) {
          return options;
       }
@@ -43,7 +41,6 @@ export class MainService {
    }
 
    private getUrl(api: string, type?: any): string {
-      console.log(type);
       let url ;
       if (type === 'ookbee') {
          url = this.urlOokBee;
@@ -57,7 +54,6 @@ export class MainService {
    }
 
    get(api: string, options?: any, type?: any): Observable<any> {
-      console.log(options);
       return this.http.get(this.getUrl(api, type), this.createHttpOptions(options, true, type))
          .pipe(catchError(this.handleError(api)));
    }

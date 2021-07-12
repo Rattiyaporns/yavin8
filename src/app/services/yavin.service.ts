@@ -55,9 +55,9 @@ export class YavinService {
    }, 'yavin-account');
   }
 
-  getUserApi() {
+  getUserApi(id: any) {
     // this.getLocalStorage();
-    return this.service.get('/14', {
+    return this.service.get('/' + id , {
       headers: new HttpHeaders({
          'Yavin-API-Key': this.yavinAuth
       })
