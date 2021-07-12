@@ -71,4 +71,12 @@ export class YavinService {
    }, 'yavin-post');
   }
 
+  getPageApi(id: any) {
+    return this.service.get('/' + id , {
+      headers: new HttpHeaders({
+         'Yavin-API-Key': this.yavinAuth
+      })
+   }, 'yavin-page');
+  }
+
 }

@@ -13,13 +13,6 @@ import { environment } from 'src/environments/environment';
 export class PostsComponent implements OnInit {
 
   public readonly url = environment.urlMetaTags;
-  metaData = {
-    title: '',
-    description: '',
-    image: '',
-    type: '',
-    url: '',
-  };
 
   id: any;
   constructor(

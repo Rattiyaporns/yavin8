@@ -30,5 +30,13 @@
         "pathRewrite": {
             "^/api/yavin/post": ""
         }
+    }, 
+    "/api/yavin/page": {
+        "target": "https://wiseday-dev.azure-api.net/pages/v1",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api/yavin/page": ""
+        }
     }
 }
