@@ -1,3 +1,4 @@
+import { isPlatformServer } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -26,10 +27,19 @@ export class PostsComponent implements OnInit {
   
       this.id = this.route.snapshot.params['id'];
       const post = await this.yavinService.getPostApi(this.id).toPromise();
-      const description = post.contents[0].caption ?? post.live?.description ?? '';
+      this.updateMetaTags(post);
+    }
 
-      console.log(description);
-      // this.updateMetaTags(post);
+    getPostDescription(post: any): string {
+      if (Array.isArray(post.contents) && post.contents.length) {
+        return post.contents[0].caption;
+      }
+
+      if (post.live != null) {
+        return post.description;
+      }
+
+      return '';
     }
   
     updateMetaTags(post: any) {
@@ -41,6 +51,8 @@ export class PostsComponent implements OnInit {
   
       this.seoService.updateType('post');
       this.seoService.updateImageUrl(post.owner.avatar_url ?? '');
-      this.seoService.updateDescription(post.description ?? '');
+
+      const description = this.getPostDescription(post);
+      this.seoService.updateDescription(description);
     }
 }
