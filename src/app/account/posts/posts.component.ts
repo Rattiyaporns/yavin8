@@ -28,26 +28,26 @@ export class PostsComponent implements OnInit {
     private title: Title,
     private seoService: SeoService) { }
 
-  async ngOnInit(): Promise<any> {
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
+    async ngOnInit(): Promise<any> {
       this.title.setTitle('Wiseday');
-    });
-    var response = await this.yavinService.getUserApi(this.id).toPromise();
-    this.metaData.title = response.display_name + response.stat.follower_count;
-    this.metaData.url = this.url + 'posts/' + this.id;
-    this.metaData.image = response.avatar_url;
-    this.metaData.type = 'post';
-    this.metaData.description = response.about;
-    this.setSocialTags(this.metaData);
-  }
+  
+      this.id = this.route.snapshot.params['id'];
+      const post = await this.yavinService.getPostApi(this.id).toPromise();
+      const description = post.contents[0].caption ?? post.live?.description ?? '';
 
-  setSocialTags(metaData: any) {
-    this.seoService.updateType(metaData.type);
-    this.seoService.updateTitle(metaData.title);
-    this.seoService.updateUrl(metaData.url);
-    this.seoService.updateImageUrl(metaData.image);
-    this.seoService.updateDescription(metaData.description);
-  }
-
+      console.log(description);
+      // this.updateMetaTags(post);
+    }
+  
+    updateMetaTags(post: any) {
+      const title = post.owner.display_name;
+      this.seoService.updateTitle(title);
+  
+      const url = this.url + 'posts/' + this.id;
+      this.seoService.updateUrl(url);
+  
+      this.seoService.updateType('post');
+      this.seoService.updateImageUrl(post.owner.avatar_url ?? '');
+      this.seoService.updateDescription(post.description ?? '');
+    }
 }

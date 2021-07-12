@@ -12,6 +12,7 @@ export class MainService {
    public readonly urlOokBee = environment.serviceUrlOokBee;
    public readonly urlYavinUser = environment.serviceYavinUser;
    public readonly urlYavinAccount = environment.serviceYavinAccount;
+   public readonly urlYavinPost = environment.serviceYavinPost;
    public readonly ookbeeAuth = environment.ookbeeAuthKey;
    public readonly yavinAuth = environment.yavinAuthKey;
    public readonly contentType = environment.ContentType;
@@ -46,9 +47,12 @@ export class MainService {
          url = this.urlOokBee;
       } else if (type === 'yavin-user') {
          url = this.urlYavinUser;
-      } if (type === 'yavin-account') {
+      } else if (type === 'yavin-post') {
+         url = this.urlYavinPost;
+      }if (type === 'yavin-account') {
          url = this.urlYavinAccount;
       } 
+      console.log(url);
       
       return url + (api.startsWith('/') ? api : '/' + api);
    }
