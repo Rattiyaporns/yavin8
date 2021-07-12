@@ -31,16 +31,6 @@ export class LoginComponent implements OnInit {
     'is_new_register': false
   };
 
-  metaData = {
-    title: '',
-    description: '',
-    image: '',
-    type: '',
-    url: '',
-  };
-  url = 'https://yavin-test.azurewebsites.net/';
-  type: any;
-  id: any;
   checkLogin = false;
   loginForm: any;
   constructor(

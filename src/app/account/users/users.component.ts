@@ -3,6 +3,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { YavinService } from 'src/app/services/yavin.service';
 import { SeoService } from 'src/app/services/seo.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-users',
@@ -10,6 +11,7 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
+  public readonly url = environment.urlMetaTags;
   metaData = {
     title: '',
     description: '',
@@ -17,13 +19,12 @@ export class UsersComponent implements OnInit {
     type: '',
     url: '',
   };
-  url = 'https://yavin-test.azurewebsites.net/';
+
   id: any;
   constructor(
     private yavinService: YavinService,
     private route: ActivatedRoute,
     private title: Title,
-    private meta: Meta,
     private seoService: SeoService) { }
 
   async ngOnInit(): Promise<any> {
