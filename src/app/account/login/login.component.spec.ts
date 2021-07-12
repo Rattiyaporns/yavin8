@@ -4,7 +4,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login.component';
 import { Router, RouterModule } from '@angular/router';
-import { OokbeeService } from '../services/ookbee.service';
+import { OokbeeService } from '../../services/ookbee.service';
 import { RouterTestingModule } from '@angular/router/testing';
 
 const routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
