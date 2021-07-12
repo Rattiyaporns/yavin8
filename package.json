@@ -13,6 +13,11 @@
     "prerender": "ng run yavin-web:prerender",
     "dp": "cd scripts && @powershell ./run.ps1"
   },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.5",
