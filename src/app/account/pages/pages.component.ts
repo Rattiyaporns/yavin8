@@ -30,7 +30,7 @@ export class PagesComponent implements OnInit {
   }
 
   updateMetaTags(page: any) {
-    const title = page.display_name;
+    const title = `${page.display_name} (${page.stat.follower_count} Followers)`;
     this.seoService.updateTitle(title);
 
     const url = this.url + 'pages/' + this.id;

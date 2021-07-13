@@ -64,9 +64,8 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
 }
 
 function setProxy(server: express.Express): void {
-  const dotenv = require('dotenv');
-  dotenv.config();
-
+  require("dotenv-json-complex")();
+  
   server.use('/api/ookbee/account', createProxyMiddleware({ target: process.env.SVC_OOKBEE_ACCOUNT, changeOrigin: true, pathRewrite: { '^/api/ookbee/account': '' } }));
   server.use('/api/yavin/user', createProxyMiddleware({ target: process.env.SVC_YAVIN_USER, changeOrigin: true, pathRewrite: { '^/api/yavin/user': '' } }));
   server.use('/api/yavin/account', createProxyMiddleware({ target: process.env.SVC_YAVIN_ACCOUNT, changeOrigin: true, pathRewrite: { '^/api/yavin/account': '' } }));

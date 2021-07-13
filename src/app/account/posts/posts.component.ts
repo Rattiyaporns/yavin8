@@ -22,39 +22,63 @@ export class PostsComponent implements OnInit {
     private title: Title,
     private seoService: SeoService) { }
 
-    async ngOnInit(): Promise<any> {
-      this.title.setTitle('Wiseday');
-  
-      this.id = this.route.snapshot.params['id'];
-      console.log(this.id);
-      const post = await this.yavinService.getPostApi(this.id).toPromise();
-      this.updateMetaTags(post);
+  async ngOnInit(): Promise<any> {
+    this.title.setTitle('Wiseday');
+
+    this.id = this.route.snapshot.params['id'];
+    const post = await this.yavinService.getPostApi(this.id).toPromise();
+    this.updateMetaTags(post);
+  }
+
+  getPostDescription(post: any): string {
+    if (Array.isArray(post.contents) && post.contents.length) {
+      return post.contents[0].caption;
     }
 
-    getPostDescription(post: any): string {
-      if (Array.isArray(post.contents) && post.contents.length) {
-        return post.contents[0].caption;
+    if (post.live != null) {
+      return post.description;
+    }
+
+    return '';
+  }
+
+  updateMetaTags(post: any) {
+    const title = `[${post.owner.display_name}] ${post.contents[0].caption}`;
+    this.seoService.updateTitle(title);
+
+    const url = this.url + 'posts/' + this.id;
+    this.seoService.updateUrl(url);
+
+    this.seoService.updateType('post');
+    const image = this.getImage(post);
+    this.seoService.updateImageUrl(image);
+
+    const description = this.getPostDescription(post);
+    this.seoService.updateDescription(description);
+  }
+
+  getImage(post: any) {
+    let image;
+    if (post.contents[0].media) {
+      const media = post.contents[0].media[0];
+      const type = media.type;
+      if (type === 'image') {
+        image = media.media_url;
+      } else if (type === 'video'){
+        image = media.thumbnail_url;
+      } else {
+        image = this.getDefault(post.owner.avatar_url);
       }
-
-      if (post.live != null) {
-        return post.description;
-      }
-
-      return '';
+    } else {
+      console.log('not media');
+      image = this.getDefault(post.owner.avatar_url);
     }
-  
-    updateMetaTags(post: any) {
-      const title = post.owner.display_name;
-      this.seoService.updateTitle(title);
-  
-      const url = this.url + 'posts/' + this.id;
-      this.seoService.updateUrl(url);
-  
-      this.seoService.updateType('post');
-      this.seoService.updateImageUrl(post.owner.avatar_url ?? '');
+    return image;
+  }
 
-      const description = this.getPostDescription(post);
-      console.log(description);
-      this.seoService.updateDescription(description);
-    }
+  getDefault(image: any) {
+    const imgUrl = (!image)? 'https://ookbee-yavin.s3.ap-southeast-1.amazonaws.com/Public/meta/Red.jpg': image;
+    console.log(imgUrl);
+    return imgUrl;
+  }
 }

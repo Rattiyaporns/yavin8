@@ -30,7 +30,7 @@ export class GroupsComponent implements OnInit {
   }
 
   updateMetaTags(group: any) {
-    const title = group.display_name;
+    const title = `${group.display_name} (${group.stat.member_count} Followers)`;
     this.seoService.updateTitle(title);
 
     const url = this.url + 'groups/' + this.id;

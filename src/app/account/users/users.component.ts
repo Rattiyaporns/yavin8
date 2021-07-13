@@ -28,15 +28,20 @@ export class UsersComponent implements OnInit {
     this.updateMetaTags(user);
   }
 
-  updateMetaTags(user: any) {
-    const title = user.display_name + user.stat.follower_count;
+  updateMetaTags(user: any) { 
+    const title = `${user.display_name} (${user.stat.follower_count} Followers)`;
     this.seoService.updateTitle(title);
 
     const url = this.url + 'users/' + this.id;
     this.seoService.updateUrl(url);
 
     this.seoService.updateType('profile');
-    this.seoService.updateImageUrl(user.avatar_url ?? '');
+    this.seoService.updateImageUrl(this.getDefault(user.avatar_url));
     this.seoService.updateDescription(user.description ?? '');
+  }
+
+  getDefault(image: any) {
+    const imgUrl = (!image)? 'https://ookbee-yavin.s3.ap-southeast-1.amazonaws.com/Public/meta/Red.jpg': image;
+    return imgUrl;
   }
 }
