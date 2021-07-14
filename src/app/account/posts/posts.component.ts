@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PostsComponent implements OnInit {
 
-  public readonly url = environment.urlMetaTags;
+  // public readonly url = environment.urlMetaTags;
 
   id: any;
   constructor(
@@ -45,15 +45,15 @@ export class PostsComponent implements OnInit {
     const title = `[${post.owner.display_name}] ${post.contents[0].caption}`;
     this.seoService.updateTitle(title);
 
-    const url = this.url + 'posts/' + this.id;
-    this.seoService.updateUrl(url);
+    // const url = this.url + 'posts/' + this.id;
+    // this.seoService.updateUrl(url);
 
     this.seoService.updateType('post');
-    const image = this.getImage(post);
-    this.seoService.updateImageUrl(image);
 
     const description = this.getPostDescription(post);
     this.seoService.updateDescription(description);
+    const image = this.getImage(post);
+    this.seoService.updateImageUrl(image);
   }
 
   getImage(post: any) {

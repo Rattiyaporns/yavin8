@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  url = 'https://yavin-test.azurewebsites.net/';
+  // url = 'https://yavin-test.azurewebsites.net/';
   id: any;
   constructor(
     private yavinService: YavinService,
@@ -29,17 +29,16 @@ export class UsersComponent implements OnInit {
   }
 
   updateMetaTags(user: any) { 
-    console.log(this.seoService.intToString(12000000));
     const follower = this.seoService.intToString(user.stat.follower_count);
     const title = `${user.display_name} (${follower} Followers)`;
     this.seoService.updateTitle(title);
 
-    const url = this.url + 'users/' + this.id;
-    this.seoService.updateUrl(url);
+    // const url = this.url + 'users/' + this.id;
+    // this.seoService.updateUrl(url);
 
     this.seoService.updateType('profile');
     this.seoService.updateImageUrl(this.seoService.getDefault(user.avatar_url));
-    this.seoService.updateDescription(user.description ?? '');
+    this.seoService.updateDescription(user.about ?? '');
   }
 
 }

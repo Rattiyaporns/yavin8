@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class GroupsComponent implements OnInit {
 
-  public readonly url = environment.urlMetaTags;
+  // public readonly url = environment.urlMetaTags;
 
   id: any;
   constructor(
@@ -34,8 +34,8 @@ export class GroupsComponent implements OnInit {
     const title = `${group.display_name} (${follower} Followers)`;
     this.seoService.updateTitle(title);
 
-    const url = this.url + 'groups/' + this.id;
-    this.seoService.updateUrl(url);
+    // const url = this.url + 'groups/' + this.id;
+    // this.seoService.updateUrl(url);
 
     this.seoService.updateType('group');
     this.seoService.updateImageUrl(this.seoService.getDefault(group.avatar_url));
