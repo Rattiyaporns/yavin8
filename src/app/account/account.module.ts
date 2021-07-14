@@ -6,6 +6,8 @@ import { UsersComponent } from './users/users.component';
 import { PostsComponent } from './posts/posts.component';
 import { PagesComponent } from './pages/pages.component';
 import { GroupsComponent } from './groups/groups.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { TermsComponent } from './terms/terms.component';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { GroupsComponent } from './groups/groups.component';
     UsersComponent,
     PostsComponent,
     PagesComponent,
-    GroupsComponent
+    GroupsComponent,
+    PrivacyComponent,
+    TermsComponent
   ],
   imports: [
     CommonModule,

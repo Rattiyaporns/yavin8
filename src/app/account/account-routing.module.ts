@@ -4,6 +4,8 @@ import { GroupsComponent } from './groups/groups.component';
 import { PagesComponent } from './pages/pages.component';
 import { PostsComponent } from './posts/posts.component';
 import { UsersComponent } from './users/users.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { TermsComponent } from './terms/terms.component';
 
 
 const routes: Routes = [
@@ -22,6 +24,14 @@ const routes: Routes = [
   { 
     path: 'groups/:id', 
     component: GroupsComponent 
+  },
+  { 
+    path: 'privacy', 
+    component: PrivacyComponent 
+  },
+  { 
+    path: 'terms', 
+    component: TermsComponent 
   }
 ];
 
