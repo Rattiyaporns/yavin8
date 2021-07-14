@@ -38,7 +38,7 @@ export class PagesComponent implements OnInit {
     this.seoService.updateUrl(url);
 
     this.seoService.updateType('page');
-    this.seoService.updateImageUrl(this.seoService.getDefault(page.categories, 'page'));
+    this.seoService.updateImageUrl(this.seoService.getDefault(page.avatar_url));
     this.seoService.updateDescription(page.about);
   }
 

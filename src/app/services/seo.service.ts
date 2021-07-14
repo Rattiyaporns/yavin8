@@ -33,30 +33,22 @@ export class SeoService {
         this.meta.updateTag({ property: 'twitter:description', content: content })
     }
 
-    public getDefault(image: any, type?: any) {
+    public getDefault(image: any) {
         let imgUrl: any;
         let defaultImage = 'https://ookbee-yavin.s3.ap-southeast-1.amazonaws.com/Public/meta/Red.jpg';
-        if (type === 'group' || type === 'page') {
-            if (image.length < 0) {
-                imgUrl = defaultImage;
-            } else {
-                imgUrl = (!image[0].image_url) ? defaultImage : image;
-            }
-        } else {
-            imgUrl = (!image) ? defaultImage : image;
-        }
+        imgUrl = (!image) ? defaultImage : image;
         return imgUrl;
     }
 
-    public intToString (value: any) {
+    public intToString(value: any) {
         let shortValue;
-        var suffixes = ["", "K", "M", "B","T"];
-        var suffixNum = Math.floor((value.toString()).length/3);
-        shortValue = parseFloat((suffixNum != 0 ? (value / Math.pow(1000,suffixNum)) : value).toPrecision(2));
+        var suffixes = ["", "K", "M", "B", "T"];
+        var suffixNum = Math.floor((value.toString()).length / 3);
+        shortValue = parseFloat((suffixNum != 0 ? (value / Math.pow(1000, suffixNum)) : value).toPrecision(2));
         if (shortValue % 1 != 0) {
             shortValue = shortValue.toFixed(1);
         }
-        return `${shortValue} ${suffixes[suffixNum]}`;
+        return `${shortValue}${suffixes[suffixNum]}`;
     }
 }
 

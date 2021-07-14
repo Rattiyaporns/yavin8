@@ -38,7 +38,7 @@ export class GroupsComponent implements OnInit {
     this.seoService.updateUrl(url);
 
     this.seoService.updateType('group');
-    this.seoService.updateImageUrl(this.seoService.getDefault(group.avatar_url, 'group'));
+    this.seoService.updateImageUrl(this.seoService.getDefault(group.avatar_url));
     this.seoService.updateDescription(group.about);
   }
 
