@@ -30,21 +30,16 @@ export class GroupsComponent implements OnInit {
   }
 
   updateMetaTags(group: any) {
-    const title = `${group.display_name} (${group.stat.member_count} Followers)`;
+    const follower = this.seoService.intToString(group.stat.member_count);
+    const title = `${group.display_name} (${follower} Followers)`;
     this.seoService.updateTitle(title);
 
     const url = this.url + 'groups/' + this.id;
     this.seoService.updateUrl(url);
 
     this.seoService.updateType('group');
-    this.seoService.updateImageUrl(this.getImage(group.avatar_url));
+    this.seoService.updateImageUrl(this.seoService.getDefault(group.avatar_url, 'group'));
     this.seoService.updateDescription(group.about);
-  }
-
-  getImage(categories: any) {
-    let image = '';
-    if (categories.length < 0) return;
-    return image = categories[0].image_url;
   }
 
 }

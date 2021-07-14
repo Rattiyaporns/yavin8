@@ -67,18 +67,11 @@ export class PostsComponent implements OnInit {
       } else if (type === 'video'){
         image = media.thumbnail_url;
       } else {
-        image = this.getDefault(post.owner.avatar_url);
+        image = this.seoService.getDefault(post.owner.avatar_url);
       }
     } else {
-      console.log('not media');
-      image = this.getDefault(post.owner.avatar_url);
+      image = this.seoService.getDefault(post.owner.avatar_url);
     }
     return image;
-  }
-
-  getDefault(image: any) {
-    const imgUrl = (!image)? 'https://ookbee-yavin.s3.ap-southeast-1.amazonaws.com/Public/meta/Red.jpg': image;
-    console.log(imgUrl);
-    return imgUrl;
   }
 }

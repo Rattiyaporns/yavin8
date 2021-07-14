@@ -58,7 +58,6 @@ export class MainService {
       } if (type === 'yavin-account') {
          url = this.urlYavinAccount;
       } 
-      console.log(url);
       
       return url + (api.startsWith('/') ? api : '/' + api);
    }

@@ -30,21 +30,16 @@ export class PagesComponent implements OnInit {
   }
 
   updateMetaTags(page: any) {
-    const title = `${page.display_name} (${page.stat.follower_count} Followers)`;
+    const follower = this.seoService.intToString(page.stat.follower_count);
+    const title = `${page.display_name} (${follower} Followers)`;
     this.seoService.updateTitle(title);
 
     const url = this.url + 'pages/' + this.id;
     this.seoService.updateUrl(url);
 
     this.seoService.updateType('page');
-    this.seoService.updateImageUrl(this.getImage(page.categories));
+    this.seoService.updateImageUrl(this.seoService.getDefault(page.categories, 'page'));
     this.seoService.updateDescription(page.about);
-  }
-
-  getImage(categories: any) {
-    let image = '';
-    if (categories.length < 0) return;
-    return image = categories[0].image_url;
   }
 
 }
