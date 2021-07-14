@@ -87,4 +87,20 @@ export class YavinService {
    }, 'yavin-gruop');
   }
 
+  getTermOfUse() {
+    return this.service.get('/agreements/terms', {
+      headers: new HttpHeaders({
+         'Yavin-API-Key': this.yavinAuth
+      })
+   }, 'yavin-agreement');
+  }
+
+  getPolicyPrivacy() {
+    return this.service.get('/agreements/privacy', {
+      headers: new HttpHeaders({
+         'Yavin-API-Key': this.yavinAuth
+      })
+   }, 'yavin-agreement');
+  }
+
 }

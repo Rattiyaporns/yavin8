@@ -69,6 +69,7 @@ function setProxy(server: express.Express): void {
   server.use('/api/ookbee/account', createProxyMiddleware({ target: process.env.SVC_OOKBEE_ACCOUNT, changeOrigin: true, pathRewrite: { '^/api/ookbee/account': '' } }));
   server.use('/api/yavin/user', createProxyMiddleware({ target: process.env.SVC_YAVIN_USER, changeOrigin: true, pathRewrite: { '^/api/yavin/user': '' } }));
   server.use('/api/yavin/account', createProxyMiddleware({ target: process.env.SVC_YAVIN_ACCOUNT, changeOrigin: true, pathRewrite: { '^/api/yavin/account': '' } }));
+  server.use('/api/yavin/agreement', createProxyMiddleware({ target: process.env.SVC_YAVIN_AGREEMENT, changeOrigin: true, pathRewrite: { '^/api/yavin/agreement': '' } }));
   server.use('/api/yavin/post', createProxyMiddleware({ target: process.env.SVC_YAVIN_POST, changeOrigin: true, pathRewrite: { '^/api/yavin/post': '' } }));
   server.use('/api/yavin/page', createProxyMiddleware({ target: process.env.SVC_YAVIN_PAGE, changeOrigin: true, pathRewrite: { '^/api/yavin/page': '' } }));
   server.use('/api/yavin/group', createProxyMiddleware({ target: process.env.SVC_YAVIN_GROUP, changeOrigin: true, pathRewrite: { '^/api/yavin/group': '' } }));

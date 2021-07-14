@@ -22,7 +22,15 @@
         "pathRewrite": {
             "^/api/yavin/account": ""
         }
-    }, 
+    },
+    "/api/yavin/agreement": {
+        "target": "https://wiseday-dev.azure-api.net/agreements/v1",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api/yavin/account": ""
+        }
+    },
     "/api/yavin/post": {
         "target": "https://wiseday-dev.azure-api.net/posts/v1",
         "secure": true,
