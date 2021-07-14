@@ -29,6 +29,7 @@ export class UsersComponent implements OnInit {
   }
 
   updateMetaTags(user: any) { 
+    console.log(this.seoService.intToString(12000000));
     const follower = this.seoService.intToString(user.stat.follower_count);
     const title = `${user.display_name} (${follower} Followers)`;
     this.seoService.updateTitle(title);
