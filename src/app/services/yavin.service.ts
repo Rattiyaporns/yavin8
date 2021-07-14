@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { MainService } from './main.service';
+import { PrivacyPolicy, TermOfUse } from '../models/yavin-service/agreement';
 @Injectable({
   providedIn: 'root'
 })
@@ -87,7 +88,7 @@ export class YavinService {
    }, 'yavin-gruop');
   }
 
-  getTermOfUse() {
+  getTermOfUse(): Observable<TermOfUse> {
     return this.service.get('/agreements/terms', {
       headers: new HttpHeaders({
          'Yavin-API-Key': this.yavinAuth
@@ -95,12 +96,11 @@ export class YavinService {
    }, 'yavin-agreement');
   }
 
-  getPolicyPrivacy() {
+  getPolicyPrivacy(): Observable<PrivacyPolicy> {
     return this.service.get('/agreements/privacy', {
       headers: new HttpHeaders({
          'Yavin-API-Key': this.yavinAuth
       })
    }, 'yavin-agreement');
   }
-
 }

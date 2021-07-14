@@ -8,8 +8,8 @@ import { YavinService } from 'src/app/services/yavin.service';
   styleUrls: ['./terms.component.scss']
 })
 export class TermsComponent implements OnInit {
-  termTitle: string = '';
-  termContent: string = '';
+  termTitle: String = '';
+  termContent: String = '';
   
   constructor(private title: Title, 
     private yavinService: YavinService)
