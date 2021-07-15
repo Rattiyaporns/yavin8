@@ -35,7 +35,7 @@ export class SeoService {
 
     public getDefault(image: any) {
         let imgUrl: any;
-        let defaultImage = 'https://ookbee-yavin.s3.ap-southeast-1.amazonaws.com/Public/meta/Red.jpg';
+        let defaultImage = 'https://d2qcrcf01ey77p.cloudfront.net/Public/meta/default_avatar_sm.png';
         imgUrl = (!image) ? defaultImage : image;
         return imgUrl;
     }
