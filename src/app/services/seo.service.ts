@@ -10,7 +10,7 @@ export class SeoService {
 
     public updateType(content: string) {
         this.meta.updateTag({ property: 'og:type', content: content });
-        this.meta.updateTag({ property: 'twitter:card', content: content });
+        this.meta.updateTag({ property: 'twitter:card', content: 'summary' });
     }
 
     public updateTitle(content: string) {
