@@ -66,6 +66,7 @@ export class MainService {
    }
 
    get(api: string, options?: any, type?: any): Observable<any> {
+      console.log()
       return this.http.get(this.getUrl(api, type), this.createHttpOptions(options, true, type))
          .pipe(catchError(this.handleError(api)));
    }
@@ -97,16 +98,16 @@ export class MainService {
 
    private handleError(api: string) {
       return (error: any): Observable<any> => {
-         let alert = true;
          let status = 0;
-         let message: string;
          if (error instanceof HttpErrorResponse) {
             status = error.status;
             if (error.status === 401) {
                console.error(error);
-            }
-            if (error.status === 0) {
+            } else if (error.status === 0) {
                console.error(error.status);
+            } else {
+               alert(error.error.message);
+               console.error(error);
             }
             // console.error(`${error.status} ${message}`);
          } else {

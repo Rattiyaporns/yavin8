@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SeoService } from 'src/app/services/seo.service';
@@ -10,7 +11,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.scss']
 })
-export class GroupsComponent implements OnInit {
+export class GroupsComponent implements OnInit, AfterViewInit {
 
   // public readonly url = environment.urlMetaTags;
 
@@ -19,7 +20,8 @@ export class GroupsComponent implements OnInit {
     private yavinService: YavinService,
     private route: ActivatedRoute,
     private title: Title,
-    private seoService: SeoService) { }
+    private seoService: SeoService,
+    @Inject(DOCUMENT) private document: Document) { }
 
   async ngOnInit(): Promise<any> {
     this.title.setTitle('Wiseday');
@@ -29,13 +31,15 @@ export class GroupsComponent implements OnInit {
     this.updateMetaTags(group);
   }
 
+  ngAfterViewInit(): void {
+    const url = `wiseday://groups/${this.id}`;
+    this.document.location.href = url;
+  }
+
   updateMetaTags(group: any) {
     const follower = this.seoService.intToString(group.stat.member_count);
     const title = `${group.display_name} (${follower} Followers)`;
     this.seoService.updateTitle(title);
-
-    // const url = this.url + 'groups/' + this.id;
-    // this.seoService.updateUrl(url);
 
     this.seoService.updateType('group');
     this.seoService.updateImageUrl(this.seoService.getDefault(group.avatar_url));

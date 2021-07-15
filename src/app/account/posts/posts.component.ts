@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SeoService } from 'src/app/services/seo.service';
@@ -10,16 +11,14 @@ import { environment } from 'src/environments/environment';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss']
 })
-export class PostsComponent implements OnInit {
-
-  // public readonly url = environment.urlMetaTags;
-
+export class PostsComponent implements OnInit, AfterViewInit {
   id: any;
   constructor(
     private yavinService: YavinService,
     private route: ActivatedRoute,
     private title: Title,
-    private seoService: SeoService) { }
+    private seoService: SeoService,
+    @Inject(DOCUMENT) private document: Document) { }
 
   async ngOnInit(): Promise<any> {
     this.title.setTitle('Wiseday');
@@ -27,6 +26,11 @@ export class PostsComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     const post = await this.yavinService.getPostApi(this.id).toPromise();
     this.updateMetaTags(post);
+  }
+
+  ngAfterViewInit(): void {
+    const url = `wiseday://posts/${this.id}`;
+    this.document.location.href = url;
   }
 
   getPostDescription(post: any): string {
@@ -45,9 +49,6 @@ export class PostsComponent implements OnInit {
     const title = `[${post.owner.display_name}] ${post.contents[0].caption}`;
     this.seoService.updateTitle(title);
 
-    // const url = this.url + 'posts/' + this.id;
-    // this.seoService.updateUrl(url);
-
     this.seoService.updateType('post');
 
     const description = this.getPostDescription(post);
@@ -63,13 +64,13 @@ export class PostsComponent implements OnInit {
       const type = media.type;
       if (type === 'image') {
         image = media.media_url;
-      } else if (type === 'video'){
+      } else if (type === 'video') {
         image = media.thumbnail_url;
       } else {
-        image = this.seoService.getDefault(post.owner.avatar_url);
+        image = this.seoService.getDefault(post.owner.avatar_url, 'post');
       }
     } else {
-      image = this.seoService.getDefault(post.owner.avatar_url);
+      image = this.seoService.getDefault(post.owner.avatar_url, 'post');
     }
     return image;
   }

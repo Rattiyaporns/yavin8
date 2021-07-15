@@ -9,33 +9,40 @@ export class SeoService {
     }
 
     public updateType(content: string) {
-        this.meta.updateTag({ property: 'og:type', content: content })
-        this.meta.updateTag({ property: 'twitter:card', content: content })
+        this.meta.updateTag({ property: 'og:type', content: content });
+        this.meta.updateTag({ property: 'twitter:card', content: content });
     }
 
     public updateTitle(content: string) {
-        this.meta.updateTag({ property: 'og:title', content: content })
-        this.meta.updateTag({ property: 'twitter:title', content: content })
+        this.meta.updateTag({ property: 'og:title', content: content });
+        this.meta.updateTag({ property: 'twitter:title', content: content });
     }
 
     public updateUrl(content: string) {
-        this.meta.updateTag({ property: 'og:url', content: content })
-        this.meta.updateTag({ property: 'twitter:url', content: content })
+        this.meta.updateTag({ property: 'og:url', content: content });
+        this.meta.updateTag({ property: 'twitter:url', content: content });
     }
 
     public updateImageUrl(content: string) {
-        this.meta.updateTag({ property: 'og:image', content: content })
-        this.meta.updateTag({ property: 'twitter:image', content: content })
+        this.meta.updateTag({ property: 'og:image', content: content });
+        this.meta.updateTag({ property: 'twitter:image', content: content });
     }
 
     public updateDescription(content: string) {
-        this.meta.updateTag({ property: 'og:description', content: content })
-        this.meta.updateTag({ property: 'twitter:description', content: content })
+        if (content) {
+            this.meta.updateTag({ property: 'og:description', content: content });
+            this.meta.updateTag({ property: 'twitter:description', content: content });
+        }
     }
 
-    public getDefault(image: any) {
+    public getDefault(image: any, type?: any) {
         let imgUrl: any;
-        let defaultImage = 'https://d2qcrcf01ey77p.cloudfront.net/Public/meta/default_avatar_sm.png';
+        let defaultImage;
+        if (type && type === 'post') {
+            defaultImage = 'https://d2qcrcf01ey77p.cloudfront.net/Public/meta/default_avatar_md.png';
+        } else {
+            defaultImage = 'https://d2qcrcf01ey77p.cloudfront.net/Public/meta/default_avatar_sm.png';
+        }
         imgUrl = (!image) ? defaultImage : image;
         return imgUrl;
     }
