@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { YavinService } from 'src/app/services/yavin.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { DOCUMENT } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
+import { DeviceDetectorService } from 'ngx-device-detector';
+// import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-users',
@@ -18,9 +19,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private title: Title,
     private seoService: SeoService,
-    @Inject(DOCUMENT) private document: Document) { }
+    @Inject(DOCUMENT) private document: Document,
+    private deviceService: DeviceDetectorService) {
+     }
 
   async ngOnInit(): Promise<any> {
+
     this.title.setTitle('Wiseday');
 
     this.id = this.route.snapshot.params['id'];
@@ -28,15 +32,17 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.updateMetaTags(user);
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void {    
+    if (!this.deviceService.isDesktop()) {
     const url = `wiseday://users/${this.id}`;
     this.document.location.href = url;
+    }
   }
 
   updateMetaTags(user: any) {
     const follower = this.seoService.intToString(user.stat.follower_count);
     const title = `${user.display_name} (${follower} Followers)`;
-    
+
     this.seoService.updateTitle(title);
     this.seoService.updateType('profile');
     this.seoService.updateImageUrl(this.seoService.getDefault(user.avatar_url));

@@ -9,7 +9,7 @@
     "test": "ng test",
     "dev:ssr": "ng run yavin-web:serve-ssr",
     "serve:ssr": "node dist/yavin-web/server/main.js",
-    "build:ssr": "ng build && ng run yavin-web:server",
+    "build:ssr": "ng build --configuration staging && ng run yavin-web:server --configuration staging",
     "prerender": "ng run yavin-web:prerender",
     "dp": "cd scripts && @powershell ./run.ps1"
   },
@@ -39,6 +39,8 @@
     "express": "^4.15.2",
     "http-proxy-middleware": "^2.0.1",
     "localstorage-polyfill": "^1.0.1",
+    "mock-browser": "^0.92.14",
+    "ngx-device-detector": "^2.1.1",
     "ngx-toastr": "^14.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",

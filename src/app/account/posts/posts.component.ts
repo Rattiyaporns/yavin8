@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { SeoService } from 'src/app/services/seo.service';
 import { YavinService } from 'src/app/services/yavin.service';
 import { environment } from 'src/environments/environment';
@@ -18,7 +19,8 @@ export class PostsComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private title: Title,
     private seoService: SeoService,
-    @Inject(DOCUMENT) private document: Document) { }
+    @Inject(DOCUMENT) private document: Document,
+    private deviceService: DeviceDetectorService) { }
 
   async ngOnInit(): Promise<any> {
     this.title.setTitle('Wiseday');
@@ -29,8 +31,10 @@ export class PostsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const url = `wiseday://posts/${this.id}`;
-    this.document.location.href = url;
+    if (!this.deviceService.isDesktop()) {
+      const url = `wiseday://posts/${this.id}`;
+      this.document.location.href = url;
+    }
   }
 
   getPostDescription(post: any): string {
