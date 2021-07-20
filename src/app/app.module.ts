@@ -10,6 +10,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UniversalInterceptor } from './http-interceptors/universal-interceptor';
 import { LoginComponent } from './account/login/login.component';
 import { AccountRoutingModule } from './account/account-routing.module';
+import { GroupRoutingModule } from './group/group-routing.module';
+import { PostRoutingModule } from './post/post-routing.module';
+import { UserRoutingModule } from './user/user-routing.module';
+import { PageRoutingModule } from './page/page-routing.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { AccountRoutingModule } from './account/account-routing.module';
     ShareModule,
     ReactiveFormsModule,
     FormsModule,
-    AccountRoutingModule
+    AccountRoutingModule,
+    GroupRoutingModule,
+    PostRoutingModule,
+    UserRoutingModule,
+    PageRoutingModule
   ],
   providers: [
     {
