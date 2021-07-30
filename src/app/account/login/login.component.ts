@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { OokbeeService } from '../../services/ookbee.service';
 import { YavinService } from '../../services/yavin.service';
-import { Title, Meta } from '@angular/platform-browser';
-import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +12,7 @@ import { SeoService } from '../../services/seo.service';
 })
 export class LoginComponent implements OnInit {
   public readonly deviceId = environment.deviceId;
+  roleUser: string | undefined;
   resAccount = {
     'ookbee_numeric_id': null,
     'access_token': '',
@@ -58,7 +57,15 @@ export class LoginComponent implements OnInit {
         this.resYavinUser = resUser;
         localStorage.setItem('access_token', this.resYavinUser.access_token);
         localStorage.setItem('refresh_token', this.resYavinUser.refresh_token);
-        this.router.navigateByUrl('/dashboard');
+        this.yavinService.getMeApi().subscribe((res: any) => {
+          this.roleUser = res.role;
+          if (this.roleUser === 'user') {
+            alert('ผู้ใช้นี้ไม่มีสิทธิ์ใช้งาน');
+            location.reload();
+          } else {
+            this.router.navigateByUrl('/dashboard');
+          }
+        }, error => console.log(error));
       }, error => console.log(error)), 1000);
     });
   }
@@ -68,10 +75,5 @@ export class LoginComponent implements OnInit {
     }, error => console.log(error));
   }
 
-  getProfile() {
-    this.yavinService.getMeApi().subscribe((res: any) => {
-    }, error => console.log(error));
-  }
 
-  
 }

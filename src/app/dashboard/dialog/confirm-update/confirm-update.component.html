@@ -1,0 +1,9 @@
+<mat-dialog-content oncontextmenu="return false;">
+    <label>คุณแน่ใจหรือไม่ว่าต้องการเปลี่ยนแปลง?</label>
+ </mat-dialog-content><br>
+ <mat-dialog-actions align="end" oncontextmenu="return false;">
+    <button id="btn_cancel" mat-button mat-dialog-close #cancelButton>ยกเลิก</button>
+    <button id="btn_confirm" mat-button #deleteButton color="warn"
+            (click)="onClickConfirm()">ตกลง</button>
+ </mat-dialog-actions>
+ 

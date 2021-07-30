@@ -1,0 +1,63 @@
+<mat-spinner *ngIf="!data" class="spin-circle"></mat-spinner>
+<div >
+    <form [formGroup]="profileForm" *ngIf="data">
+        <div class="div-profile">
+            <img [src]="data.avatar_url" alt="user" width="300" height="300">
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="user_id">Profile Id</label>
+                <input type="text" id="user_id" name="user_id" [attr.disabled]="true" formControlName="userId" >
+            </div>
+            <div class="column">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" [attr.disabled]="true" formControlName="email">
+            </div>
+            <div class="column">
+                <label for="create_date">Created Date</label>
+                <input type="text" id="create_date" name="create_date" [attr.disabled]="true" formControlName="createDate">
+            </div>
+            <div class="column">
+                <label for="update_date">Update Date</label>
+                <input type="text" id="update_date" name="update_date" [attr.disabled]="true" formControlName="updateDate">
+            </div>
+            <div class="column">
+                <label for="update_date">Following</label>
+                <input type="text" id="following" name="following" [attr.disabled]="true" formControlName="following">
+            </div>
+            <div class="column">
+                <label for="update_date">Follower</label>
+                <input type="text" id="follower" name="follower" [attr.disabled]="true" formControlName="follower">
+            </div>
+            <div class="column">
+                <label for="display_name">Display Name</label>
+                <input type="text" id="display_name" name="display_name"  formControlName="displayName">
+            </div>
+            <div class="column">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" formControlName="username">
+            </div>
+            <div class="column">
+                <label for="update_date">About</label>
+                <input type="text" id="about" name="about" formControlName="about">
+            </div>
+            <div class="column">
+                <label for="update_date">Cover Url</label>
+                <input type="text" id="cover" name="cover" formControlName="cover">
+            </div>
+            <div class="column">
+                <label for="update_date">Summary</label>
+                <input type="text" id="summary" name="summary" formControlName="summary">
+            </div>
+            <div class="column">
+                <label for="role">Role</label>
+                <select class="custom-select"  formControlName="role">
+                    <option *ngFor="let role of roles" [ngValue]="role.name">{{role.name}}</option>
+                 </select>
+            </div>
+
+        </div>
+
+        <input type="submit" value="Submit" (click)="onSubmit()">
+    </form>
+</div>

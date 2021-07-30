@@ -1,0 +1,12 @@
+::ng-deep .mat-button:hover .mat-button-focus-overlay {
+    opacity: 0.04 !important;
+ }
+ 
+ ::ng-deep .mat-button-focus-overlay {
+    background-color: transparent !important;
+ }
+ 
+ ::ng-deep #reject.mat-button.mat-warn .mat-button-focus-overlay, .mat-icon-button.mat-warn .mat-button-focus-overlay, .mat-stroked-button.mat-warn .mat-button-focus-overlay {
+    background-color: #f44336 !important;
+    opacity: 0.04;
+ }

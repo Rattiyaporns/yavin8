@@ -1,10 +1,10 @@
 .example-container {
-  height: 500px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px solid rgb(127 118 118 / 39%);
 }
 .example-sidenav-content {
-  display: flex;
+  margin: 20px;
   height: 100%;
+  min-height: 800px;
   align-items: center;
   justify-content: center;
 }
@@ -45,4 +45,12 @@
 
 .nav-color {
   background: #fce2293d !important;
+}
+
+.example-container {
+  background-color: #72747414; 
+}
+
+mat-drawer-content {
+  padding: 20 px !important;
 }

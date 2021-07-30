@@ -34,18 +34,13 @@ export class DashboardComponent implements OnInit {
 
   getProfile() {
     this.yavinService.getMeApi().subscribe((res: any) => {
-      console.log(res);
       this.displayName = res.display_name;
-      // display_name
     }, error => console.log(error));
   }
 
   logout() {
-    console.log('in');
     this.yavinService.logout().subscribe((res: any) => {
       this.router.navigate(['login']);
-      // this.router.navigate(['/login'], { queryParams: { checkLogin: false }});
-      // this.router.navigate(['/login', { checkLogin: false }]);
     }, error => console.log(error));
   }
 }
